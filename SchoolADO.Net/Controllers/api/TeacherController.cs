@@ -16,8 +16,8 @@ namespace SchoolADO.Net.Controllers.api
         {
             try
             {
-                List<Teacher> teachersList = getAllTeachers(conectionString);
-                return Ok(new { teachersList });
+                
+                return Ok(getAllTeachers(conectionString));
             }
             catch (SqlException sqlerr)
             {
@@ -34,8 +34,7 @@ namespace SchoolADO.Net.Controllers.api
         {
             try
             {
-                Teacher someTeacher = getTeacher(conectionString, id);
-                return Ok(new { someTeacher });
+                return Ok(getTeacher(conectionString, id));
             }
             catch (SqlException sqlerr)
             {
@@ -53,8 +52,7 @@ namespace SchoolADO.Net.Controllers.api
             try
             {
                 addTeacher(conectionString, newTeacher);
-                List<Teacher> teacherList = getAllTeachers(conectionString);
-                return Ok(new { teacherList });
+                return Ok(getAllTeachers(conectionString));
             }
             catch (SqlException sqlerr)
             {
@@ -73,8 +71,7 @@ namespace SchoolADO.Net.Controllers.api
             try
             {
                 updateTeacher(conectionString, id, teacher);
-                List<Teacher> teacherList = getAllTeachers(conectionString);
-                return Ok(new { teacherList });
+                return Ok(getAllTeachers(conectionString));
             }
             catch (SqlException sqlerr)
             {
@@ -92,8 +89,7 @@ namespace SchoolADO.Net.Controllers.api
             try
             {
                 deleteTeacher(conectionString, id);
-                List<Teacher> teacherList = getAllTeachers(conectionString);
-                return Ok(new { teacherList });
+                return Ok(getAllTeachers(conectionString));
             }
             catch (SqlException sqlerr)
             {
@@ -135,9 +131,10 @@ namespace SchoolADO.Net.Controllers.api
            
         }
 
-        private Teacher getTeacher(string connection , int id) { 
-        Teacher someTeacher = new Teacher();
-        using (SqlConnection DBconnection = new SqlConnection(connection))
+        private Teacher getTeacher(string connection , int id)
+        { 
+          Teacher someTeacher = new Teacher();
+          using (SqlConnection DBconnection = new SqlConnection(connection))
             {
                 DBconnection.Open();
                 string query = $@"SELECT * FROM Teachers WHERE Id = {id}";
